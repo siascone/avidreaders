@@ -1,30 +1,55 @@
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
 
     const dispatch = useDispatch();
+    const dropdownRef = useRef(null);
+    const [showMenu, setShowMenu] = useState(false);
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener('click', closeMenu);
+    }, [showMenu]);
 
     const handleLogout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
     }
 
+    const toggleMenu = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        setShowMenu(!showMenu);
+    }
+
     return (
         <>
-            <button>
+            <button onClick={toggleMenu}>
                 <FaUserCircle />
             </button>
-            <ul className="profile-dropdown">
-                <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
-                <li>{user.email}</li>
-                <li>
-                    <button onClick={handleLogout}>Log Out</button>
-                </li>
-            </ul>
+            {showMenu && (
+                <ul className="profile-dropdown" ref={dropdownRef}>
+                    <li>{user.username}</li>
+                    <li>{user.firstName} {user.lastName}</li>
+                    <li>{user.email}</li>
+                    <li>
+                        <button onClick={handleLogout}>Log Out</button>
+                    </li>
+                </ul>
+            )}
         </>
     )
 }

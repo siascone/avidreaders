@@ -29,6 +29,8 @@ class Api::SessionsController < ApplicationController
     if @user
         logout!()
         render json: { message: 'Logout Successful' }, status: 200
+    else
+        render json: {message: 'No one to logout'}, status: 200
     end
   end 
 end

@@ -54,8 +54,6 @@ export const logout = () => async dispatch => {
         method: 'DELETE'
     })
 
-    const data = await res.json();
-
     dispatch(removeUser());
 
     return res;

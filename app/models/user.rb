@@ -32,8 +32,19 @@ class User < ApplicationRecord
         length: { in: 6..40 },
         allow_nil: true
 
-
     before_validation :ensure_session_token
+
+    # Associations
+
+    has_many :reads,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :Read
+
+    has_many :books, 
+        through: :reads,
+        source: :book
+        
 
     def self.find_by_credentials(credential, password)
         column = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username

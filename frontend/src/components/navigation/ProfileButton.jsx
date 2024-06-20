@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import * as sessionActions from '../../store/session';
+import * as sessionActions from '../../store/sessionReducer';
 
 function ProfileButton({ user }) {
 

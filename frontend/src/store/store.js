@@ -3,10 +3,12 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { thunk } from 'redux-thunk';
 import sessionReducer from './sessionReducer';
 import booksReducer from './booksReducer';
+import authorsReducer from './authorsReducer';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
-    books: booksReducer
+    books: booksReducer,
+    authors: authorsReducer
 });
 
 let enhancer;

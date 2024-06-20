@@ -11,3 +11,7 @@ json.readers do
         end
     end
 end
+
+json.author do 
+    json.extract! @book.author, :first_name, :last_name, :id
+end

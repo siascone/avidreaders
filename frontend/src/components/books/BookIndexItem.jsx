@@ -2,7 +2,7 @@ function BookIndexItem( { book } ) {
     return (
         <>
             <li>
-                <p>Title: {book.title}. By: {book.authorId}</p>
+                <p>Title: {book.title}. By: {book.author}</p>
             </li>
         </>
     )

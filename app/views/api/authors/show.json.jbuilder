@@ -1,5 +1,5 @@
 json.author do
-    json.extract! @author, :id, :first_name, :last_name
+    json.extract! @author, :id, :first_name, :last_name, :bio
 end
 
 json.readers do 

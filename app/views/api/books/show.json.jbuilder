@@ -1,5 +1,6 @@
 json.book do 
     json.partial! 'book', book: @book
+    json.summary @book.summary
     json.readerIds @book.reader_ids
 end
 

@@ -29,6 +29,7 @@ function Navigation() {
             <li>
                 <NavLink to='/'>Home</NavLink>
             </li>
+            <li><NavLink to='/books'>Book Index</NavLink></li>
             {sessionLinks}
         </ul>
     )

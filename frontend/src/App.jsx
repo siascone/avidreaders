@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import LoginForm from "./components/session/LoginForm";
 import SignupForm from './components/session/SignupForm';
 import Navigation from './components/navigation/Navigation';
+import BookIndex from './components/books/BookIndex';
 import * as sessionActions from './store/sessionReducer';
+import BookPage from './components/books/BookPage';
 
 function Layout() {
     const dispatch = useDispatch();
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignupForm />
+            },
+            {
+                path: '/books',
+                element: <BookIndex />
+            },
+            {
+                path: '/books/:bookId',
+                element: <BookPage />
             }
         ]
     }

@@ -1,3 +1,5 @@
+import csrfFetch from "./csrf";
+
 const RECEIVE_BOOKS = 'books/receiveBooks';
 const RECEIVE_BOOK = 'books/receiveBook';
 
@@ -16,7 +18,7 @@ const receiveBook = (book) => {
 };
 
 export const fetchBooks = () => async dispatch => {
-    const res = await fetch('/api/books');
+    const res = await csrfFetch('/api/books');
 
     const data = await res.json();
 
@@ -26,7 +28,7 @@ export const fetchBooks = () => async dispatch => {
 };
 
 export const fetchBook = (bookId) => async dispatch => {
-    const res = await fetch(`/api/books/${bookId}`);
+    const res = await csrfFetch(`/api/books/${bookId}`);
 
     const data = await res.json();
 
@@ -35,10 +37,10 @@ export const fetchBook = (bookId) => async dispatch => {
     return res;
 }
 
-const initialState = { books: {} }
+const initialState = { }
 
 const booksReducer = (state = initialState, action) => {
-    
+
     let nextState = { ...state }
 
     switch(action.type) {

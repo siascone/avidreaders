@@ -44,6 +44,31 @@ function SignupForm() {
         return setErrors(['Password fields do not match.'])
     }
 
+    const demoLogin = (e) => {
+        e.preventDefault();
+
+        dispatch(sessionActions.login({
+            credential: 'theBookworm',
+            password: 'password'
+        }))
+            .catch(async (res) => {
+                let data;
+                try {
+                    data = await res.clone().json();
+                } catch {
+                    data = await res.text();
+                }
+
+                if (data?.errors) {
+                    setErrors(data.errors);
+                } else if (data) {
+                    setErrors([data]);
+                } else {
+                    setErrors([res.statusText]);
+                }
+            });
+    }
+
     return (
         <>
             <h1>Sign Up</h1>
@@ -109,6 +134,7 @@ function SignupForm() {
                 </label>
 
                 <button type='submit'>Sign Up</button>
+                <button onClick={(e) => demoLogin(e)}>Demo Login</button>
 
             </form>
         </>

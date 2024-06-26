@@ -1,4 +1,4 @@
-import RECEIVE_BOOK from './booksReducer';
+import {RECEIVE_BOOK} from './booksReducer';
 
 const RECEIVE_AUTHOR = 'authors/receiveAuthor';
 
@@ -27,8 +27,11 @@ function authorsReducer(state = {}, action) {
         case RECEIVE_AUTHOR:
             nextState[action.payload.id] = action.payload;
             return nextState;
+        // case RECEIVE_BOOKS:
+            
         case RECEIVE_BOOK:
-            nextState[action.payload.author.id] = action.payload.author;
+            console.log(action.payload)
+            nextState[action.payload.book.authorId] = {name: action.payload.book.author};
             return nextState;
         default:
             return state;

@@ -1,6 +1,6 @@
 import csrfFetch from "./csrf";
 
-const RECEIVE_BOOKS = 'books/receiveBooks';
+export const RECEIVE_BOOKS = 'books/receiveBooks';
 export const RECEIVE_BOOK = 'books/receiveBook';
 
 const receiveBooks = (books) => {
@@ -31,8 +31,10 @@ export const fetchBook = (bookId) => async dispatch => {
     const res = await csrfFetch(`/api/books/${bookId}`);
 
     const data = await res.json();
+    
+    console.log(data)
 
-    dispatch(receiveBook(data.book));
+    dispatch(receiveBook(data));
 
     return res;
 }
@@ -45,7 +47,7 @@ const booksReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case RECEIVE_BOOK: 
-            nextState[action.payload.id] = action.payload;
+            nextState[action.payload.book.id] = action.payload.book;
             return nextState
         case RECEIVE_BOOKS:
             return { ...nextState, ...action.payload };

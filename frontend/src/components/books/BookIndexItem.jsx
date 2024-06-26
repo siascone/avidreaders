@@ -1,4 +1,5 @@
 function BookIndexItem( { book } ) {
+    console.log(book)
     return (
         <>
             <li>

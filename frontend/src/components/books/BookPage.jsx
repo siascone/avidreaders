@@ -17,13 +17,16 @@ function BookPage() {
 
     if (book === undefined ) return null;
 
+    console.log(book)
+
     return (
         <>
+            <h1>Book Page</h1>
             <div>
-                <h2>{book.title}</h2>
-                <h3>{book.subtitle}</h3>
-                <p>{book.authorId}</p>
-                <p>{book.summary}</p>
+                <h2>Title: {book.title}</h2>
+                <h3>Subtitle: {book.subtitle}</h3>
+                <p>Author: {book.author}</p>
+                <p>Summary: {book.summary}</p>
             </div>
         </>
     )

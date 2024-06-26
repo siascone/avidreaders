@@ -30,8 +30,7 @@ function authorsReducer(state = {}, action) {
         // case RECEIVE_BOOKS:
             
         case RECEIVE_BOOK:
-            console.log(action.payload)
-            nextState[action.payload.book.authorId] = {name: action.payload.book.author};
+            nextState[action.payload.author.id] = action.payload.author;
             return nextState;
         default:
             return state;

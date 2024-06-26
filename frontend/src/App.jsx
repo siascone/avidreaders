@@ -7,6 +7,7 @@ import Navigation from './components/navigation/Navigation';
 import BookIndex from './components/books/BookIndex';
 import * as sessionActions from './store/sessionReducer';
 import BookPage from './components/books/BookPage';
+import AuthorPage from './components/authors/AuthorPage';
 
 function Layout() {
     const dispatch = useDispatch();
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: '/books/:bookId',
                 element: <BookPage />
+            },
+            {
+                path: '/authors/:authorId',
+                element: <AuthorPage />
             }
         ]
     }

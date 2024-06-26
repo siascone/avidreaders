@@ -32,8 +32,6 @@ export const fetchBook = (bookId) => async dispatch => {
 
     const data = await res.json();
     
-    console.log(data)
-
     dispatch(receiveBook(data));
 
     return res;

@@ -1,5 +1,7 @@
+// import AuthorItem from "../authors/AuthorItem"
+
 function BookIndexItem( { book } ) {
-    console.log(book)
+
     return (
         <>
             <li>

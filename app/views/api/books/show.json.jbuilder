@@ -2,7 +2,9 @@ json.book do
     json.partial! 'book', book: @book
     json.summary @book.summary
     json.readerIds @book.reader_ids
-    json.author "#{@book.author.first_name} #{@book.author.last_name}"
+    # json.author do
+    #     json.extract! @book.author, :first_name, :last_name, :id
+    # end
 end
 
 json.readers do
@@ -13,6 +15,6 @@ json.readers do
     end
 end
 
-# json.author do 
-#     json.extract! @book.author, :first_name, :last_name, :id
-# end
+json.author do 
+    json.extract! @book.author, :first_name, :last_name, :id
+end

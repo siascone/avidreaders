@@ -36,6 +36,31 @@ function LoginForm() {
             });
     }
 
+    const demoLogin = (e) => {
+        e.preventDefault();
+
+        dispatch(sessionActions.login({
+            credential: 'theBookworm', 
+            password: 'password'
+        }))
+            .catch(async (res) => {
+                let data;
+                try {
+                    data = await res.clone().json();
+                } catch {
+                    data = await res.text();
+                }
+
+                if (data?.errors) {
+                    setErrors(data.errors);
+                } else if (data) {
+                    setErrors([data]);
+                } else {
+                    setErrors([res.statusText]);
+                }
+            });
+    }
+
     return (
         <>
             <h1>Log In</h1>
@@ -65,6 +90,7 @@ function LoginForm() {
                 </label>
 
                 <button type="submit">Log In</button>
+                <button onClick={(e) => demoLogin(e)}>Demo Login</button>
             </form>
         </>
     );

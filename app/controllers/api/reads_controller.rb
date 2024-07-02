@@ -1,13 +1,17 @@
 class Api::ReadsController < ApplicationController
 
     def index
-        @reads = Read.where(user_id: params[:user_id])
+        # @reads = Read.where(user_id: params[:user_id])
         
-        if @reads.length > 0
-            render json: @reads
-        else
-            render json: {errors: ['No reads available']}, status: 422
-        end
+        # if @reads.length > 0
+        #     render json: @reads
+        # else
+        #     render json: {errors: ['No reads available']}, status: 422
+        # end
+
+        @reads = Read.all
+
+        render :index
     end
 
     def show

@@ -11,7 +11,7 @@ const setRead = (read) => {
     };
 };
 
-const setReads = (reads) => {
+export const setReads = (reads) => {
     return {
         type: SET_READS,
         payload: reads

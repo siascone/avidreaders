@@ -20,25 +20,6 @@ function ReadForm({ bookId }) {
         } 
     })
 
-    const read = useSelector(state => {
-        if (state.session.user) {
-            let uId = state.session.user.id
-            let reads = Object.values(state.reads)
-
-            let thisRead = {} 
-            
-            reads.forEach(read => {
-                if (read.userId === uId && read.bookId === bookId) {
-                    thisRead = read 
-                }
-            })
-
-            return thisRead
-        }
-
-        return null;
-    })
-
     useEffect(() => {
         if (!showDropdown) return;
 
@@ -89,13 +70,8 @@ function ReadForm({ bookId }) {
                 <button onClick={e => goToLogin(e)}>Login to add to list</button>
             </>
         )
-    }
-
-    if (read) {
-        setReadStatus(read.status)
     } 
     
-
     return (
         <>
             <button onClick={toggleDropdown}>

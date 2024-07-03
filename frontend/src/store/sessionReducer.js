@@ -1,5 +1,6 @@
 import csrfFetch from './csrf.js';
 import { storeCSRFToken } from './csrf.js';
+import {setReads} from './readsReducer.js'
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
@@ -24,8 +25,9 @@ export const login = ({credential, password}) => async dispatch => {
     });
 
     const data = await res.json();
-     
+
     dispatch(setUser(data.user));
+    dispatch(setReads(data.reads));
 
     return res;
 }
@@ -64,6 +66,7 @@ export const restoreSession = () => async dispatch => {
     storeCSRFToken(res);
     const data = await res.json();
     dispatch(setUser(data.user));
+    dispatch(setReads(data.reads));
     return res;
 }
 

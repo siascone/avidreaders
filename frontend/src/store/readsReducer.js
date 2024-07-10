@@ -28,7 +28,7 @@ export const fetchReads = () => async dispatch => {
     return res;
 }
 
-export const makeRead = ({ bookId, userId, status }) => async dispatch => {
+export const createRead = ({ bookId, userId, status }) => async dispatch => {
 
     const res = await csrfFetch('/api/reads', {
         method: 'POST',
@@ -37,7 +37,22 @@ export const makeRead = ({ bookId, userId, status }) => async dispatch => {
 
     const data = await res.json();
 
-    dispatch(setRead(data.read));
+    dispatch(setRead(data));
+
+    return res;
+}
+
+export const updateRead = (readId, status) => async dispatch => {
+    const res = await csrfFetch(`/api/reads/${readId}`, { 
+        method: 'PATCH', 
+        body: JSON.stringify({ status: status })
+    });
+    
+    const data = await res.json();
+    
+    console.log(data);
+
+    dispatch(setRead(data));
 
     return res;
 }

@@ -2,16 +2,22 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as bookActions from '../../store/booksReducer';
-// import * as readActions from '../../store/readsReducer';
 import BookIndexItem from "./BookIndexItem";
 
 function BookIndex() {
     const dispatch = useDispatch();
     const books = useSelector(state => Object.values(state.books));
-    
+    const userId = useSelector(state => {
+
+        if (state.session.user) {
+            return state.session.user.id;
+        } else {
+            return null;
+        }
+    })
+
     useEffect(() => {
         dispatch(bookActions.fetchBooks());
-        // dispatch(readActions.fetchReads());
     }, [dispatch])
 
     return (
@@ -20,7 +26,7 @@ function BookIndex() {
             <ul>
                 {books.map(book => {
                     
-                    return <NavLink to={`/books/${book.id}`} key={book.id}><BookIndexItem book={book} /></NavLink>
+                    return <NavLink to={`/books/${book.id}`} key={book.id}><BookIndexItem book={book} userId={userId} /></NavLink>
                     
                     })
                 }

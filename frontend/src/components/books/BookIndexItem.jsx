@@ -2,13 +2,13 @@
 
 import ReadForm from "../reads/ReadForm"
 
-function BookIndexItem( { book } ) {
+function BookIndexItem( { book, userId } ) {
 
     return (
         <>
             <li>
                 <p>Title: {book.title}. By: {book.author}</p>
-                <ReadForm bookId={book.id}/>
+                <ReadForm bookId={book.id} userId={userId}/>
             </li>
         </>
     )

@@ -1,1 +1,0 @@
-json.extract! @read, :id, :user_id, :book_id

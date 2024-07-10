@@ -4,20 +4,24 @@ import * as readActions from '../../store/readsReducer';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function ReadForm({ bookId }) {
+function ReadForm({ bookId, userId }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const readDropdownRef = useRef(null);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [readStatus, setReadStatus] = useState('Unread')
-    const userId = useSelector(state => {
-        
-        if (state.session.user) {
-            return state.session.user.id;
-        } else {
-            return null;
-        } 
+    const [readStatus, setReadStatus] = useState('Add to list?')
+
+    const read = useSelector(state => {
+        let bookReads = Object.values(state.reads)
+
+        let userReads = bookReads.filter(bookRead => {
+            if (bookRead.bookId === bookId && bookRead.userId === userId) {
+                return bookRead
+            }
+        })
+
+        return userReads[0]
     })
 
     useEffect(() => {
@@ -25,7 +29,7 @@ function ReadForm({ bookId }) {
 
         const closeDropdown = (e) => {
             if (readDropdownRef.current && !readDropdownRef.current.contains(e.target)) {
-                showDropdown(false);
+                setShowDropdown(false);
             }
         }
 
@@ -35,18 +39,21 @@ function ReadForm({ bookId }) {
         
     }, [showDropdown])
 
-    const handleSubmit = (e, status) => {
+    const handleSubmit = (e, status, verb) => {
         e.preventDefault();
 
+        
+
+        if (verb === 'POST') {
+            dispatch(readActions.createRead({
+                bookId: bookId,
+                userId: userId,
+                status: status
+            }))
+        } else if (verb === 'PATCH') {
+            dispatch(readActions.updateRead(read.id, status))
+        }
         setReadStatus(status)
-
-        dispatch(readActions.makeRead({
-            bookId: bookId,
-            userId: userId,
-            status: readStatus
-        }))
-        // dispatch()
-
         toggleDropdown(e)
     }
 
@@ -71,6 +78,24 @@ function ReadForm({ bookId }) {
             </>
         )
     } 
+
+    if (read) {
+        return (
+            <>
+                <button onClick={toggleDropdown}>
+                    {read.status}
+                </button>
+                {showDropdown && (
+                        <ul className="read-dropdown" ref={readDropdownRef}>
+                            <li onClick={(e) => handleSubmit(e, 'Unread', 'PATCH')}>Unread</li>
+                            <li onClick={(e) => handleSubmit(e, 'Reading', 'PATCH')}>Reading</li>
+                            <li onClick={(e) => handleSubmit(e, 'Read', 'PATCH')}>Read</li>
+                        </ul>
+                    )
+                }
+            </>
+        )
+    }
     
     return (
         <>
@@ -79,9 +104,9 @@ function ReadForm({ bookId }) {
             </button>
             {showDropdown && (
                 <ul className="read-dropdown" ref={readDropdownRef}>
-                    <li onClick={(e) => handleSubmit(e, 'Unread')}>Unread</li>
-                    <li onClick={(e) => handleSubmit(e, 'Reading')}>Reading</li>
-                    <li onClick={(e) => handleSubmit(e, 'Read')}>Read</li>
+                    <li onClick={(e) => handleSubmit(e, 'Unread', 'POST')}>Unread</li>
+                    <li onClick={(e) => handleSubmit(e, 'Reading', 'POST')}>Reading</li>
+                    <li onClick={(e) => handleSubmit(e, 'Read', 'POST')}>Read</li>
                 </ul>
             )}
         </>

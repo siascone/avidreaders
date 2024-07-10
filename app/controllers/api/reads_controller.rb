@@ -1,22 +1,12 @@
 class Api::ReadsController < ApplicationController
-
+    wrap_parameters include: Read.attribute_names
     def index
-        # @reads = Read.where(user_id: params[:user_id])
-        
-        # if @reads.length > 0
-        #     render json: @reads
-        # else
-        #     render json: {errors: ['No reads available']}, status: 422
-        # end
-
         @reads = Read.all
-
         render :index
     end
 
     def show
         @read = Read.find_by(id: params[:id])
-
         render json: @read
     end
 
@@ -32,7 +22,8 @@ class Api::ReadsController < ApplicationController
             @read.status = params[:status]
 
             if @read.save!
-                render json: { messages: ['Successfully added to your reading list']}
+                # render json: { messages: ['Successfully added to your reading list']}
+                render 'api/reads/show'
             else
                 render json: { errors: @read.errors.full_messages }, status: 422
             end
@@ -47,10 +38,9 @@ class Api::ReadsController < ApplicationController
             render json: { errors: ['You must be logged in to updated the status of a book on your reading list']}, status: :unauthorized
         else
             @read = Read.find_by(id: params[:id])
-            # @read.status = params[:status]
 
             if @read && @read.update(read_params)
-                render json: {messages: ['Successfully updated your reading list']}
+                render 'api/reads/show'
             end
         end
         

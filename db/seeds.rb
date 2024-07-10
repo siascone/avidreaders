@@ -67,7 +67,7 @@ ApplicationRecord.transaction do
 
     puts "Creating user reads..."
 
-    STATUSES = ['read', 'reading', 'unread']
+    STATUSES = ['Read', 'Reading', 'Unread']
 
     pairs = []
     i = 0;

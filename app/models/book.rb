@@ -22,6 +22,10 @@ class Book < ApplicationRecord
         through: :reads,
         source: :reader
 
+    has_many :ratings,
+        foreign_key: :book_id,
+        class_name: :Rating
+
     belongs_to :author,
         primary_key: :id,
         foreign_key: :author_id,

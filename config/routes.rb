@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         resources :authors, only: [:show]
         resource :session, only: [:show, :create, :destroy]
         resources :reads, only: [:index, :show, :create, :update, :destroy]
+        resources :ratings, only: [:create, :update, :destroy]
     end
 
     get '*path', to: "static_pages#frontend_index"

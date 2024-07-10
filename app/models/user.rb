@@ -44,6 +44,10 @@ class User < ApplicationRecord
     has_many :books, 
         through: :reads,
         source: :book
+
+    has_many :ratings,
+        foreign_key: :user_id,
+        class_name: :Rating
         
 
     def self.find_by_credentials(credential, password)

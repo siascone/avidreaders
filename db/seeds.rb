@@ -9,6 +9,7 @@
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
 
+    Rating.destroy_all
     Read.destroy_all
     Book.destroy_all
     Author.destroy_all
@@ -20,6 +21,7 @@ ApplicationRecord.transaction do
     ApplicationRecord.connection.reset_pk_sequence!('authors')
     ApplicationRecord.connection.reset_pk_sequence!('books')
     ApplicationRecord.connection.reset_pk_sequence!('reads')
+    ApplicationRecord.connection.reset_pk_sequence!('ratings')
 
 
     puts "Creating users..."
@@ -69,20 +71,45 @@ ApplicationRecord.transaction do
 
     STATUSES = ['Read', 'Reading', 'Unread']
 
-    pairs = []
+    read_pairs = []
     i = 0;
     while  i < 100
         
         pair = [rand(1..25), rand(1..25)]
 
-        if !pairs.include?(pair) 
+        if !read_pairs.include?(pair) 
             
-            pairs << pair
+            read_pairs << pair
 
             Read.create!({
                 user_id: pair[0],
                 book_id: pair[1],
                 status: STATUSES.sample()
+            })
+
+            i += 1
+        end
+
+    end
+
+    puts "Creating raitings..."
+
+    RATINGS = [1, 2, 3, 4, 5]
+
+    rating_pairs = []
+    i = 0;
+    while  i < 100
+        
+        pair = [rand(1..25), rand(1..25)]
+
+        if !rating_pairs.include?(pair) 
+            
+            rating_pairs << pair
+
+            Rating.create!({
+                user_id: pair[0],
+                book_id: pair[1],
+                value: RATINGS.sample()
             })
 
             i += 1

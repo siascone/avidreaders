@@ -1,24 +1,43 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Avidreaders (IN PROGRESS)
 
-Things you may want to cover:
+- A bookworm's community: designed for book reviews, discussions recomendations 
+  and clubs.
 
-* Ruby version
+## Features:
 
-* System dependencies
+### Profile page
+- Profile photo
+- Tagline
+- Bio
+- Favorite Generas
+- List of posts
 
-* Configuration
+### Feed
+- Post option at top
+- Feed of freinds and clubs posts below
 
-* Database creation
+### Library
+- list of books on your shelf with statuses: read, unread reading
 
-* Database initialization
+### Posts (Add a read)
+- Book reviews/recomendations of completed reads with commentability by friends
 
-* How to run the test suite
+### Friends
+- Can be friends with other readers
+- Gives user ability to comment on friends and clubs posts
 
-* Services (job queues, cache servers, search engines, etc.)
+### Clubs
+- Collectives of readers around shared interests/topics
+- Posts page like profile page
+    - Club members can post/comment on this page
+    - Non club members can like posts but cannon comment (public clubs)
+    - Non club members cannot see club (private clubs)
+- Public/private options?
 
-* Deployment instructions
+### Likes
+- posts and comments can reveive likes
 
-* ...
+### Search
+- Ability to search by/for title, author, genera, club interest, friends etc.
